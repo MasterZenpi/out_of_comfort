@@ -59,10 +59,11 @@
 	     ADD R3, R3, #-10	        ; Sets R3 to -10 for comparison with "ENTER" key LC-3 (ASCII x0A)
 InputLoop    GETC		        ; Begin of InputLoop, gets characterinput
 	     OUT                        ; Write one character to console same as TRAP 21
-	     NOT R3, R3			
+	     NOT R3, R3
+	     ADD R3, R3, 1			
 	     ADD R0, R3, R0		; Compares input character in R0 with R3
 	     BRz ExitInput		; Exits loop if "ENTER" key is detected
-	     LD R0, R1  		; Stores input character in R0 into memory location in R1
+	     STR R0, R1, #0  		; Stores input character in R0 into memory location in R1
 	     ;Add code here    		; Increments R1 memory location for next character in input encrypt message
 	     ;Add code here    		; Increments counter
 	     BRn InputLoop		; Loops if counter is still negative
