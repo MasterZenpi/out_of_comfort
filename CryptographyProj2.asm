@@ -101,21 +101,23 @@ ExitInput 		                ;
 EncryptLoop 
 	     LDR R0, R3, #0    		; Load the value in the memory location pointed by R3 with 0 Offeset into R0
 	     BRz SKIP		        ; Ends Encryption when all characters are read
-	     ;Add code here		; Determines last bit in R0. Use AND with decimal number #1
+	     ADD R4, R0, #0		; Determines last bit in R0. Use AND with decimal number #1
 	     BRp One_1		        ; 
-	     ;Add code here		; If last bit in R0 is zero, adds 1 to toggle bit, stores in R4
+	     ADD R0, R4, #1		; If last bit in R0 is zero, adds 1 to toggle bit, stores in R4
 	     BRnzp E_Store
 One_1        ADD R4, R0, #-1    	; If last bit is one, subtracts 1 to toggle bit, stores in R4
 	  
 E_Store     
-	     ;Add code here		; Adds encyption key to R4 (char w/ toggled bit)
-	     ;Add code here		; Stores/write encrypyed char into its memory location "NEW'
-	     ;Add code here		; Increments character pointer to next memory address for loop "EncryptLoop"
-	     ;Add code here		; Increments memory pointer to next memory address for storing "NEW"
+	     ADD R4, R4, R2		; Adds encyption key to R4 (char w/ toggled bit)
+	     STR R4, R5, #0		; Stores/write encrypyed char into its memory location "NEW'
+	     ADD R3, R3, #1		; Increments character pointer to next memory address for loop "EncryptLoop"
+	     ADD R5, R5, #1		; Increments memory pointer to next memory address for storing "NEW"
 	     BRnzp EncryptLoop
 
 
-;DECRYPT
+DECRYPT
+	LDR R0,R3, #0
+
 ;Decryption algorithm:
 ;Decryption code here follow the logic rule for decryption logic
 ;
@@ -145,6 +147,7 @@ E_Store
 ;Note that the encryption/decryption algorithm stored the message to be output starting in location x3116. 
 ;The result of the encryption/decryption algorithm should be stored in locations x3116 to x3129. 
 ;Display the encryption or decryption message from the saved in NEW memory address location
+
 SKIP
 
 	    LEA R0, SCRIPT		; Loads new message script into R0
