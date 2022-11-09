@@ -38,7 +38,7 @@
 
 	     LD R1, STORE		; Sets R1 to x3100 for memory storage and access
 
-	     LEA R0, PROMPT1		; Load Prompt1 "(E)ncryption or (D)ecryption
+	     LEA R0, PROMPT1		; Load Prompt1 "(E)ncryption or (D)ecryption"
 	     PUTS			; Output Prompt1 same as TRAP 22. Write null-terminated string to console.
 	     IN			        ; Get character input from keyboard same as TRAP 20
 	     STR R0, R1, #0		; Stores/write character at memory location indicated by R1
@@ -61,11 +61,11 @@ InputLoop    GETC		        ; Begin of InputLoop, gets characterinput
 	     OUT                        ; Write one character to console same as TRAP 21
 	     NOT R3, R3
 	     ADD R3, R3, 1			
-	     ADD R0, R3, R0		; Compares input character in R0 with R3
+	     ADD R3, R3, R0		; Compares input character in R0 with R3
 	     BRz ExitInput		; Exits loop if "ENTER" key is detected
 	     STR R0, R1, #0  		; Stores input character in R0 into memory location in R1
-	     ;Add code here    		; Increments R1 memory location for next character in input encrypt message
-	     ;Add code here    		; Increments counter
+	     ADD R1, R1, #1    		; Increments R1 memory location for next character in input encrypt message
+	     ADD R2, R2, #1    		; Increments counter
 	     BRn InputLoop		; Loops if counter is still negative
 ExitInput 		                ;
 
@@ -74,16 +74,18 @@ ExitInput 		                ;
 
 	     ;These lines prepare for encryption/decryption
 	     LD R1, STORE		; Stores x3100 in R1
-	     ;Add code here    		; Stores encryption key (ASCII) in R2 from memory address in R1
+	     STR R2, R1, #0		; Stores encryption key (ASCII) in R2 from memory address in R1
 	     ADD R2, R2, #-16   	; These three lines convert R2 from ASCII to Decimal. "0-9" are "48-57" ASCII code
 	     ADD R2, R2, #-16   	; ^											;Line 50
 	     ADD R2, R2, #-16	        ; ^^
-	     ;Add code here    		; Makes R3 point to first char in input messge for encryption from the memory location in R1
+	     ADD R3, R1, #0    		; Makes R3 point to first char in input messge for encryption from the memory location in R1
 	     LD R5, NEW		        ; Loads memory location NEW to store encrypted message
 
 	     LDI R1, STORE 		; Reloads R1 with x3100
 	     LD R6, N68		        ; Loads R6 with -68 to check for D input 
-	     ;Add code here    		; Adds R1 and R6 to check if D was first input
+	     NOT R1, R1			; TURNS R1 TO 2'S COMPLEMENT 
+	     ADD R1, R1, #1		; ^
+	     ADD R6, R6, R1     	; Adds R1 and R6 to check if D was first input
 	     ;BRz DECRYPT		; Goes to DECRYPT if D was first input, else it runs encyption in next instruction
 ;
 ;Encryption algorithm:
