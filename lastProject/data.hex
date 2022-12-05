@@ -1,0 +1,20 @@
+4000      ;Data from memory address location
+0006      ;Decimal +6
+0004      ;Decimal +4
+0003      ;Decimal +3
+0002      ;Decimal +2
+0009      ;Decimal +9
+0007      ;Decimal +7
+0008      ;Decimal +8
+0001      ;Decimal +1
+0005      ;Decimal +5
+;0000      ;Decimal  0
+FFFF      ;Decimal -1  Hexdecimal FFFF
+FFFE      ;Decimal -2
+FFFD      ;Decimal -3
+FFFC      ;Decimal -4
+FFFB      ;Decimal -5
+FFFA      ;Decimal -6
+FFF9      ;Decimal -7
+FFF8      ;Decimal -8
+FFF7      ;Decimal -9
