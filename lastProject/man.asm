@@ -98,7 +98,7 @@ Begin1	STR R1, R2, #0          ; Write the '+' in R2 to memory address R1 pointe
 	;ADD CODE HERE          ; Restore R2's data from save address memory before return to caller.
 	;ADD CODE HERE          ; Restore R3's data from save address memory before return to caller.
 
-	;ADD CODE HERE          ;Return to caller
+	RET          ;Return to caller
 
 
 ASCIIPlus	.FILL #43	; ASCII value for '+'
