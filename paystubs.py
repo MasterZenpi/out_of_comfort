@@ -15,13 +15,14 @@ pdf_files = [f for f in files if f.endswith('.pdf')]
 # loop through each PDF file and open it
 for file in pdf_files:
     # create a PDF object
-  tables = tabula.read_pdf(file, pages='all')
-  text = extract_text(file)
-  df = tables[0]
+    with pdfplumber.open(os.path.join(folder_path, file)) as pdf:
 
-  #hours worked in one pay period  
-  hours = df.iloc[1][1]
+        tables = tabula.read_pdf(file, pages='all')
+        text = extract_text(file)
+        df = tables[0]
+        #hours worked in one pay period  
+        hours = df.iloc[1][1]
   
-  #getts the pay period dates
-  date = text.split('\n')[47] + text.split('\n')[48]
-  new_row = {date:hours}
+        #getts the pay period dates
+        date = text.split('\n')[47] + text.split('\n')[48]
+        new_row = {date:hours}
