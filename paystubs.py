@@ -22,6 +22,12 @@ for file in pdf_files:
         df = tables[0]
         #hours worked in one pay period  
         hours = df.iloc[1][1]
+         for page in pdf.pages:
+            # extract the text from the page
+            page_text = page.extract_text()
+
+            # do something with the page text (e.g. print it)
+            print(page_text)
   
         #getts the pay period dates
         date = text.split('\n')[47] + text.split('\n')[48]
